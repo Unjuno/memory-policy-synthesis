@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "description": "Conservative starter: reclaim up to 25% of anonymous KiB if idle >= 10 seconds.",
+  "expr": {
+    "op": "if_ge",
+    "feature": "idle_sec",
+    "threshold": 10,
+    "then": {
+      "op": "percent",
+      "value": 25,
+      "expr": {
+        "op": "feature",
+        "name": "anon_kib"
+      }
+    },
+    "else": {
+      "op": "lit",
+      "value": 0
+    }
+  }
+}

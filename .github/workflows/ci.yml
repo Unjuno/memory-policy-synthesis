@@ -1,0 +1,19 @@
+name: policy-tests
+on:
+  push:
+  pull_request:
+jobs:
+  build-and-proof:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential python3 curl
+      - name: Build and differential tests
+        run: make check
+      - name: Install Lean 4 via elan
+        run: |
+          curl -sSf https://elan.lean-lang.org/elan-init.sh | sh -s -- -y --no-modify-path --default-toolchain leanprover/lean4:v4.36.0
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Lean safety checks
+        run: make formal
