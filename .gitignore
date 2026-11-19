@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+build/
+formal/*.olean
+formal/*.ilean
+formal/*.c
+results/
+*.log
+.DS_Store
